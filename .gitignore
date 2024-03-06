@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/godot,visualstudio
 # Edit at https://www.toptal.com/developers/gitignore?templates=godot,visualstudio
 
+# unattributed assets
+art/char_a_p1
+
 ### Godot ###
 # Godot 4+ specific ignores
 .godot/
