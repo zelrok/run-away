@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Insomnia's Descent.mp3-5e8ff69597d4a85a6fa62d7069d20895.mp3str"
+
+[deps]
+
+source_file="res://art/Insomnia's Descent.mp3"
+dest_files=[ "res://.import/Insomnia's Descent.mp3-5e8ff69597d4a85a6fa62d7069d20895.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
