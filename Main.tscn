@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Main.cs" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://art/gameover.wav" type="AudioStream" id=6]
 [ext_resource path="res://art/textures/pixel-0013-749822320.png" type="Texture" id=7]
 [ext_resource path="res://Debug.cs" type="Script" id=8]
+[ext_resource path="res://ControlDot.cs" type="Script" id=9]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -60,6 +61,17 @@ stream = ExtResource( 6 )
 
 [node name="Debug" type="Node" parent="."]
 script = ExtResource( 8 )
+
+[node name="ControlDot" type="Label" parent="."]
+visible = false
+margin_left = 17.0
+margin_top = 15.0
+margin_right = 28.0
+margin_bottom = 29.0
+text = "O"
+align = 1
+valign = 1
+script = ExtResource( 9 )
 
 [connection signal="Hit" from="Player" to="." method="GameOver"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]

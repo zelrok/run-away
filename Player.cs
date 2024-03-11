@@ -7,6 +7,9 @@ public class Player : Area2D
 	[Export]
 	public int Speed = 400; // movement in pixels/sec
 	public Vector2 ScreenSize; //size of game window
+	private bool dragging;
+	private Vector2 direction;
+	private Vector2 initialDrop;
 
 	[Signal]
 	public delegate void Hit();
@@ -19,6 +22,33 @@ public class Player : Area2D
 		Hide(); // player hidden when the game starts
 	}
 
+	public override void _Input(InputEvent @event)
+	{
+
+		if (@event is InputEventScreenTouch touchEvent)
+		{ 
+			dragging = touchEvent.Pressed; 
+			initialDrop = touchEvent.Position;
+		}
+		if (@event is InputEventScreenDrag dragEvent)
+		{
+			//GD.Print(dragEvent.AsText());
+			//direction[0] = Mathf.Clamp(dragEvent.Position[0] - initialDrop[0], -1, 1);
+			//direction[1] =  Mathf.Clamp(dragEvent.Position[1] - initialDrop[1], -1, 1);
+			direction.x = dragEvent.Position.x - initialDrop.x;
+			direction.y = dragEvent.Position.y - initialDrop.y;
+			//GD.Print(direction);
+		}
+		//if (!dragging)
+		//{
+		//	Input.ActionRelease("move_left");
+		//	Input.ActionRelease("move_right");
+		//	Input.ActionRelease("move_up");
+		//	Input.ActionRelease("move_down");
+		//}
+		//base._Input(@event);
+	}
+
 	public override void _Process(float delta)
 	{
 		var velocity = Vector2.Zero;
@@ -29,6 +59,11 @@ public class Player : Area2D
 		if (Input.IsActionPressed("move_right")) { velocity.x += 1; }
 		if (Input.IsActionPressed("move_up")) { velocity.y -= 1; }
 		if (Input.IsActionPressed("move_down")) { velocity.y += 1; }
+
+		if (dragging)
+		{
+			velocity = direction;
+		}
 
 		// play the right animation
 		var animatedSprite = GetNode<AnimatedSprite>("AnimatedSprite");

@@ -1,27 +1,33 @@
 using Godot;
 using System;
+using System.Drawing.Drawing2D;
 using System.Reflection;
 
 public partial class Debug : Node
 {
-    // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = "text";
-    private bool toggleDebug = false;
+	// Declare member variables here. Examples:
+	// private int a = 2;
+	// private string b = "text";
+	private bool toggleDebug = false;
 
-    // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
-    {
+	// Called when the node enters the scene tree for the first time.
+	public override void _Ready()
+	{
 
-    }
+	}
 
-    public override void _Input(InputEvent @event)
-    {
-        if (toggleDebug)
-        {
-            GD.Print(@event.AsText());
-        }
-    }
+	public override void _Input(InputEvent @event)
+	{
+		if (toggleDebug)
+		{
+			string tester = @event.AsText();
+			//GD.Print(tester.Substr(0, 19));
+			if (@event is InputEventScreenDrag dragEvent)
+			{
+				GD.Print(dragEvent.Relative.ToString());
+			}
+		}
+	}
 }
 
 

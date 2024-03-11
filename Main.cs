@@ -7,6 +7,8 @@ public class Main : Node
 	[Export]
 	public PackedScene MobScene;
 #pragma warning restore 649
+	[Export]
+	public bool disableSpawns;
 
 	public int Score;
 
@@ -40,16 +42,19 @@ public class Main : Node
 	}
 	private void _on_MobTimer_timeout()
 	{
-		var mob = (Mob)MobScene.Instance(); //new instance of Mob
-		var mobSpawnLocation = GetNode<PathFollow2D>("MobPath/MobSpawnLocation");
-		mobSpawnLocation.Offset = GD.Randi(); // rando location on Path2D
-		float direction = mobSpawnLocation.Rotation + Mathf.Pi / 2; // set dir perpendicular
-		mob.Position = mobSpawnLocation.Position; // set mob position to the rando
-		direction += (float)GD.RandRange(-Mathf.Pi / 4, Mathf.Pi / 4); // some rando to direction
-		mob.Rotation = direction; // set mob rotation to the rando
-		var velocity = new Vector2((float)GD.RandRange(150.0, 250.0), 0); // pick a velocity
-		mob.LinearVelocity = velocity.Rotated(direction); // set mob velo to rando
-		AddChild(mob); // actually spawn mob by adding to Main
+		if (!disableSpawns)
+		{
+			var mob = (Mob)MobScene.Instance(); //new instance of Mob
+			var mobSpawnLocation = GetNode<PathFollow2D>("MobPath/MobSpawnLocation");
+			mobSpawnLocation.Offset = GD.Randi(); // rando location on Path2D
+			float direction = mobSpawnLocation.Rotation + Mathf.Pi / 2; // set dir perpendicular
+			mob.Position = mobSpawnLocation.Position; // set mob position to the rando
+			direction += (float)GD.RandRange(-Mathf.Pi / 4, Mathf.Pi / 4); // some rando to direction
+			mob.Rotation = direction; // set mob rotation to the rando
+			var velocity = new Vector2((float)GD.RandRange(150.0, 250.0), 0); // pick a velocity
+			mob.LinearVelocity = velocity.Rotated(direction); // set mob velo to rando
+			AddChild(mob); // actually spawn mob by adding to Main
+		}
 	}
 
 	private void _on_ScoreTimer_timeout()
