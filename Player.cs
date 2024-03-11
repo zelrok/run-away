@@ -24,7 +24,7 @@ public class Player : Area2D
 
 	public override void _Input(InputEvent @event)
 	{
-
+		// touch screen, but doesnt work on mobile website?
 		if (@event is InputEventScreenTouch touchEvent)
 		{ 
 			dragging = touchEvent.Pressed; 
@@ -32,21 +32,21 @@ public class Player : Area2D
 		}
 		if (@event is InputEventScreenDrag dragEvent)
 		{
-			//GD.Print(dragEvent.AsText());
-			//direction[0] = Mathf.Clamp(dragEvent.Position[0] - initialDrop[0], -1, 1);
-			//direction[1] =  Mathf.Clamp(dragEvent.Position[1] - initialDrop[1], -1, 1);
 			direction.x = dragEvent.Position.x - initialDrop.x;
 			direction.y = dragEvent.Position.y - initialDrop.y;
-			//GD.Print(direction);
 		}
-		//if (!dragging)
-		//{
-		//	Input.ActionRelease("move_left");
-		//	Input.ActionRelease("move_right");
-		//	Input.ActionRelease("move_up");
-		//	Input.ActionRelease("move_down");
-		//}
-		//base._Input(@event);
+		
+		// maybe mobile website simulates mouse
+		if (@event is InputEventMouseButton mouseEvent)
+		{
+			dragging = mouseEvent.Pressed;
+			initialDrop = mouseEvent.Position;
+		}
+		if(@event is InputEventMouseMotion motionEvent)
+		{
+			direction = motionEvent.Position - initialDrop;
+		}
+			
 	}
 
 	public override void _Process(float delta)

@@ -26,6 +26,16 @@ public class ControlDot : Label
 			{
 				this.Hide();
 			}
+		} else if (@event is InputEventMouseButton mouseEvent)
+		{
+			if (mouseEvent.Pressed) 
+			{
+				this.Show();
+				this.SetPosition(mouseEvent.Position);
+			} else
+			{
+				this.Hide();
+			}
 		}
 
 	}
